@@ -16,6 +16,8 @@ public class TimeManager {
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
+    // TODO Нажатие "Перепланировать"
+
     public void calendarSelector(LocalDate date) {
         int currentMonth = LocalDate.now().getMonthValue();
         int month = date.getMonthValue();
@@ -31,7 +33,7 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         $("[name='name']").setValue("Пореченков Михаил");
         $("[name='phone']").setValue("+79009009988");
         $("[class='checkbox__box']").click();
-        $(withText("Забронировать")).click();
+        $(withText("Запланировать")).click();
     }
 
 }

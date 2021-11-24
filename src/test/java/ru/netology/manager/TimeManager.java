@@ -36,4 +36,10 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         $(withText("Запланировать")).click();
     }
 
+    public void replan() {
+        if ($("[data-test-id='replan-notification']").isDisplayed()) {
+            $$("button").find((exactText("Перепланировать"))).click();
+        }
+
+    }
 }

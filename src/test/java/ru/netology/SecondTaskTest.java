@@ -42,7 +42,6 @@ public class SecondTaskTest {
         $("[placeholder='Дата встречи']").setValue(dateToInput);
 
         manager.endOfInsert();
-        manager.replan();
 
         $(withText(dateToInput)).
                 shouldBe(visible, Duration.ofSeconds(15));
@@ -57,7 +56,6 @@ public class SecondTaskTest {
 
         manager.calendarSelector(date);
         manager.endOfInsert();
-        manager.replan();
 
         String notificationContent = formatter.format(date);
 

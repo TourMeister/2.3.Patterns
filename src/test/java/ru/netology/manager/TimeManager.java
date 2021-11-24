@@ -2,7 +2,6 @@ package ru.netology.manager;
 
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import static com.codeborne.selenide.Condition.exactText;
@@ -11,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class TimeManager {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public void calendarSelector(LocalDate date) {
         int currentMonth = LocalDate.now().getMonthValue();
@@ -29,12 +28,9 @@ public class TimeManager {
         $("[name='phone']").setValue("+79009009988");
         $("[class='checkbox__box']").click();
         $(withText("Запланировать")).click();
-    }
 
-    public void replan() {
         if ($("[data-test-id='replan-notification']").isDisplayed()) {
             $$("button").find((exactText("Перепланировать"))).click();
         }
-
     }
 }

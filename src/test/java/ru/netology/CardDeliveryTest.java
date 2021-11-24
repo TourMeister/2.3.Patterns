@@ -42,7 +42,6 @@ public class CardDeliveryTest {
         $("[placeholder='Дата встречи']").setValue(dateToInput);
 
         manager.endOfInsert();
-        manager.replan();
 
         $(withText(dateToInput)).
                 shouldBe(visible, Duration.ofSeconds(15));

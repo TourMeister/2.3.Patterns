@@ -1,7 +1,6 @@
 package ru.netology.manager;
 
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -12,11 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class TimeManager {
-//    String[] date;
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-
-    // TODO Нажатие "Перепланировать"
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public void calendarSelector(LocalDate date) {
         int currentMonth = LocalDate.now().getMonthValue();

@@ -29,6 +29,7 @@ public class TimeManager {
         $("[class='checkbox__box']").click();
         $(withText("Запланировать")).click();
 
+        /*В случае повторной записи на выбранную дату выполняется следущий код*/
         if ($("[data-test-id='replan-notification']").isDisplayed()) {
             $$("button").find((exactText("Перепланировать"))).click();
         }

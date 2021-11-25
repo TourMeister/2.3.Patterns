@@ -14,7 +14,6 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-// TODO Нажатие "Перепланировать"
 // TODO Важно: в этот раз вы не должны хардкодить данные прямо в тест!
 // TODO Используйте Faker, Lombok, Data-классы (для группировки нужных полей) и утилитный класс-генератор данных* - см. пример в презентации.
 //

@@ -41,7 +41,6 @@ public class DataGenerator {
 
 
     public static String generateName() {
-        // TODO: убрать отчество из faker`a
         Faker faker = new Faker(new Locale("ru"));
         return faker.name().fullName();
     }

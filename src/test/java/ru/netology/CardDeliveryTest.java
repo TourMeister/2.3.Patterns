@@ -28,63 +28,65 @@ public class CardDeliveryTest {
     TimeManager manager = new TimeManager();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    @BeforeEach
-    void setupTest() {
-        open("http://localhost:9999");
-    }
-
-    @Test
-    void shouldOrderCardDeliveryByText() {
-        LocalDate date = LocalDate.now().plusDays(3);
-        String dateToInput = formatter.format(date);
-
-        $("[placeholder='Город']").setValue("Мурманск");
-        $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
-        $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
-        $("[placeholder='Дата встречи']").setValue(dateToInput);
-
-        manager.endOfInsert();
-
-        $(withText(dateToInput)).
-                shouldBe(visible, Duration.ofSeconds(15));
-    }
-
-    @Test
-    void shouldOrderCardDeliveryByText2() {
-        LocalDate date = LocalDate.now().plusDays(7);
-        String dateToInput = formatter.format(date);
-
-        $("[placeholder='Город']").setValue("Мурманск");
-        $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
-        $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
-        $("[placeholder='Дата встречи']").setValue(dateToInput);
-
-        manager.endOfInsert();
-
-        $(withText(dateToInput)).
-                shouldBe(visible, Duration.ofSeconds(15));
-    }
-
-    @Test
-    void shouldSelectFromList() {
-        $("[placeholder='Город']").setValue("Са");
-        $(byText("Санкт-Петербург")).click();
-        $("[placeholder='Дата встречи']").click(); // открытие календаря
-        LocalDate date = LocalDate.now().plusDays(7);
-
-        manager.calendarSelector(date);
-        manager.endOfInsert();
-
-        String notificationContent = formatter.format(date);
-
-        $(withText(notificationContent)).
-                shouldBe(visible, Duration.ofSeconds(15));
-    }
+//    @BeforeEach
+//    void setupTest() {
+//        open("http://localhost:9999");
+//    }
+//
+//    @Test
+//    void shouldOrderCardDeliveryByText() {
+//        LocalDate date = LocalDate.now().plusDays(3);
+//        String dateToInput = formatter.format(date);
+//
+//        $("[placeholder='Город']").setValue("Мурманск");
+//        $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
+//        $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
+//        $("[placeholder='Дата встречи']").setValue(dateToInput);
+//
+//        manager.endOfInsert();
+//
+//        $(withText(dateToInput)).
+//                shouldBe(visible, Duration.ofSeconds(15));
+//    }
+//
+//    @Test
+//    void shouldOrderCardDeliveryByText2() {
+//        LocalDate date = LocalDate.now().plusDays(7);
+//        String dateToInput = formatter.format(date);
+//
+//        $("[placeholder='Город']").setValue("Мурманск");
+//        $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
+//        $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
+//        $("[placeholder='Дата встречи']").setValue(dateToInput);
+//
+//        manager.endOfInsert();
+//
+//        $(withText(dateToInput)).
+//                shouldBe(visible, Duration.ofSeconds(15));
+//    }
+//
+//    @Test
+//    void shouldSelectFromList() {
+//        $("[placeholder='Город']").setValue("Са");
+//        $(byText("Санкт-Петербург")).click();
+//        $("[placeholder='Дата встречи']").click(); // открытие календаря
+//        LocalDate date = LocalDate.now().plusDays(7);
+//
+//        manager.calendarSelector(date);
+//        manager.endOfInsert();
+//
+//        String notificationContent = formatter.format(date);
+//
+//        $(withText(notificationContent)).
+//                shouldBe(visible, Duration.ofSeconds(15));
+//    }
 
     @Test
     void shouldTestNewMethods() {
         System.out.println(DataGenerator.generateDate(4));  // done
         System.out.println(DataGenerator.generateCity("ru")); // done
+        System.out.println(DataGenerator.generateName("ru")); // done
+        System.out.println(DataGenerator.generatePhone("ru")); // done
     }
 
 

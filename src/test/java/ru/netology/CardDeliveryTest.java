@@ -87,6 +87,7 @@ public class CardDeliveryTest {
         System.out.println(DataGenerator.generateCity("ru")); // done
         System.out.println(DataGenerator.generateName("ru")); // done
         System.out.println(DataGenerator.generatePhone("ru")); // done
+        System.out.println(DataGenerator.generateUser("ru")); // TODO: not done =)
     }
 
 

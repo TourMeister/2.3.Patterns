@@ -38,7 +38,7 @@ public class DataGenerator {
     public static String generateName(String locale) {
         // TODO: добавить логику для объявления переменной name и задания её значения, для генерации можно
         // использовать Faker
-        // TODO: сделать генерацию только имени и фамилии по полу
+        // TODO: убрать отчество из faker`a
 //        RandomService sex = faker.random(["male, female"])
 
 //        String fullName = faker.name().fullName();
@@ -47,8 +47,6 @@ public class DataGenerator {
     }
 
     public static String generatePhone(String locale) {
-        // TODO: добавить логику для объявления переменной phone и задания её значения, для генерации можно
-        // использовать Faker
         return Faker.instance(Locale.forLanguageTag(locale)).phoneNumber().phoneNumber();
     }
 
@@ -57,6 +55,7 @@ public class DataGenerator {
         // generateName(locale), generatePhone(locale)
         name = generateName(locale);
         city = generateCity(locale);
+        phone = generatePhone(locale);
 
         return user;
     }

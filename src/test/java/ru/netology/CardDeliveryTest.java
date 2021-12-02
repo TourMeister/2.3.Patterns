@@ -4,11 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import ru.netology.data.DataGenerator;
-import ru.netology.manager.TimeManager;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.util.Objects;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.visible;
@@ -17,22 +14,14 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 import static ru.netology.data.DataGenerator.*;
 
-// TODO Важно: в этот раз вы не должны хардкодить данные прямо в тест!
-// TODO Используйте Faker, Lombok, Data-классы (для группировки нужных полей) и утилитный класс-генератор данных* - см. пример в презентации.
-//
-// Утилитными называют классы, у которых приватный конструктор и статичные методы.
-//
-// Обратите внимание, что Faker может генерировать не совсем в нужном для вас формате.
-
 public class CardDeliveryTest {
-    TimeManager manager = new TimeManager();
-    String locale = "ru";
 
-    private String date = generateDate(3);
-    private String secondDate = generateDate(15);
-    private String city = generateCity();
-    private String name = generateName();
-    private String phone = generatePhone();
+    private final String date = generateDate(3);
+    private final String secondDate = generateDate(15);
+    private final String expiredDate = generateDate(-15);
+    private final String city = generateCity();
+    private final String name = generateName();
+    private final String phone = generatePhone();
 
     @BeforeEach
     void setupTest() {
@@ -41,7 +30,7 @@ public class CardDeliveryTest {
 
     @Test
     void shouldOrderCardDelivery() {
-         $("[placeholder='Город']").setValue(city);
+        $("[placeholder='Город']").setValue(city);
         $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
         $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
         $("[placeholder='Дата встречи']").setValue(date);
@@ -53,9 +42,19 @@ public class CardDeliveryTest {
     }
 
     @Test
-    void shouldOrderNewCardDelivery() {
+    void shouldOrderNewDateCardDelivery() {
+        $("[placeholder='Город']").setValue(city);
+        $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
+        $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
+        $("[placeholder='Дата встречи']").setValue(date);
 
-        $("[placeholder='Город']").setValue("Мурманск");
+        endOfInsert();
+
+        $(withText(date)).
+                shouldBe(visible, Duration.ofSeconds(15));
+
+
+        $("[placeholder='Город']").setValue(city);
         $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
         $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
         $("[placeholder='Дата встречи']").setValue(secondDate);
@@ -67,36 +66,17 @@ public class CardDeliveryTest {
     }
 
     @Test
-    void shouldSelectFromList() {
+    void shouldGetErrorFromDate() {
         $("[placeholder='Город']").setValue("Са");
         $(byText("Санкт-Петербург")).click();
-        $("[placeholder='Дата встречи']").click(); // открытие календаря
-        LocalDate date = LocalDate.now().plusDays(7);
+        $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
+        $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
+        $("[placeholder='Дата встречи']").setValue(expiredDate);
 
-        calendarSelector(date);
         endOfInsert();
 
-        $(withText(String.valueOf(date))).
+        $(withText("Заказ на выбранную дату невозможен")).
                 shouldBe(visible, Duration.ofSeconds(15));
-    }
-
-    @Test
-    void shouldTestNewMethods() {
-        System.out.println(generateDate(4));  // done
-        System.out.println(DataGenerator.generateCity()); // done
-        System.out.println(generateName()); // done
-        System.out.println(DataGenerator.generatePhone()); // done
-    }
-
-    private void calendarSelector(LocalDate date) {
-        int currentMonth = LocalDate.now().getMonthValue();
-        int month = date.getMonthValue();
-
-        if (!Objects.equals(month, currentMonth)) {
-            $("[data-step='1']").click();
-        }
-        String theRightDay = String.valueOf(date.getDayOfMonth());
-        $$("[role=gridcell]").find(exactText(theRightDay)).click();
     }
 
     private void endOfInsert() {
@@ -119,6 +99,14 @@ public class CardDeliveryTest {
         System.out.println(secondDate);
         System.out.println(name);
         System.out.println(phone);
+    }
+
+    @Test
+    void shouldTestNewMethods() {
+        System.out.println(generateDate(4));  // done
+        System.out.println(DataGenerator.generateCity()); // done
+        System.out.println(generateName()); // done
+        System.out.println(DataGenerator.generatePhone()); // done
     }
 }
 

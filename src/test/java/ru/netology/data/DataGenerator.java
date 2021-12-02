@@ -3,9 +3,10 @@ package ru.netology.data;
 import lombok.Value;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DataGenerator {
-    private static LocalDate date;
+    private static String date;
     private static String city;
     private static String name;
     private static String phone;
@@ -14,9 +15,12 @@ public class DataGenerator {
     private DataGenerator() {
     }
 
-    public static LocalDate generateDate(int shift) {
-        // TODO: добавить логику для объявления переменной date и задания её значения, для генерации строки с датой
-        // Вы можете использовать класс LocalDate и его методы для получения и форматирования даты
+    public static String generateDate(int shift) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        LocalDate date1 = LocalDate.now().plusDays(shift);
+        date = formatter.format(date1);
+
         return date;
     }
 

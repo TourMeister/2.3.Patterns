@@ -84,6 +84,7 @@ public class CardDeliveryTest {
     @Test
     void shouldTestNewMethods() {
         System.out.println(DataGenerator.generateDate(4));  // done
+        System.out.println(DataGenerator.generateCity("ru")); // done
     }
 
 

@@ -1,9 +1,11 @@
 package ru.netology.data;
 
+import com.github.javafaker.Faker;
 import lombok.Value;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DataGenerator {
     private static String date;
@@ -25,9 +27,7 @@ public class DataGenerator {
     }
 
     public static String generateCity(String locale) {
-        // TODO: добавить логику для объявления переменной city и задания её значения, генерацию можно выполнить
-        // с помощью Faker, либо используя массив валидных городов и класс Random
-        return city;
+        return Faker.instance(Locale.forLanguageTag(locale)).address().city();
     }
 
     public static String generateName(String locale) {

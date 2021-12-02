@@ -22,17 +22,11 @@ public class DataGenerator {
     static Faker faker = new Faker();
 
     public static String generateDate(int shift) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        LocalDate date1 = LocalDate.now().plusDays(shift);
-        date = formatter.format(date1);
-
-        return date;
+        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     public static String generateCity(String locale) {
         return Faker.instance(Locale.forLanguageTag(locale)).address().city();
-//        return faker.address().city();
     }
 
     public static String generateName(String locale) {

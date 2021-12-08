@@ -3,7 +3,6 @@ package ru.netology;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
-import ru.netology.data.DataGenerator;
 
 import java.time.Duration;
 
@@ -35,7 +34,10 @@ public class CardDeliveryTest {
         $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
         $("[placeholder='Дата встречи']").setValue(date);
 
-        endOfInsert();
+        $("[name='name']").setValue(name);
+        $("[name='phone']").setValue(phone);
+        $("[class='checkbox__box']").click();
+        $(withText("Запланировать")).click();
 
         $(withText(date)).
                 shouldBe(visible, Duration.ofSeconds(15));
@@ -48,19 +50,20 @@ public class CardDeliveryTest {
         $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
         $("[placeholder='Дата встречи']").setValue(date);
 
-        endOfInsert();
+        $("[name='name']").setValue(name);
+        $("[name='phone']").setValue(phone);
+        $("[class='checkbox__box']").click();
+        $(withText("Запланировать")).click();
 
-        $(withText(date)).
+        $("notification__content").
                 shouldBe(visible, Duration.ofSeconds(15));
 
-
-        $("[placeholder='Город']").setValue(city);
         $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
         $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
         $("[placeholder='Дата встречи']").setValue(secondDate);
+        $(withText("Запланировать")).click();
 
-        endOfInsert();
-
+        $$("button").find((exactText("Перепланировать"))).click();
         $(withText(secondDate)).
                 shouldBe(visible, Duration.ofSeconds(15));
     }
@@ -73,40 +76,14 @@ public class CardDeliveryTest {
         $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
         $("[placeholder='Дата встречи']").setValue(expiredDate);
 
-        endOfInsert();
-
-        $(withText("Заказ на выбранную дату невозможен")).
-                shouldBe(visible, Duration.ofSeconds(15));
-    }
-
-    private void endOfInsert() {
         $("[name='name']").setValue(name);
         $("[name='phone']").setValue(phone);
         $("[class='checkbox__box']").click();
         $(withText("Запланировать")).click();
 
-        /*В случае повторной записи на выбранную дату выполняется следущий код*/
-        if ($("[data-test-id='replan-notification']").isDisplayed()) {
-            $$("button").find((exactText("Перепланировать"))).click();
-        }
+        $(withText("Заказ на выбранную дату невозможен")).
+                shouldBe(visible, Duration.ofSeconds(15));
 
-        printData();
-    }
-
-    private void printData() {
-        System.out.println(city);
-        System.out.println(date);
-        System.out.println(secondDate);
-        System.out.println(name);
-        System.out.println(phone);
-    }
-
-    @Test
-    void shouldTestNewMethods() {
-        System.out.println(generateDate(4));  // done
-        System.out.println(DataGenerator.generateCity()); // done
-        System.out.println(generateName()); // done
-        System.out.println(DataGenerator.generatePhone()); // done
     }
 }
 

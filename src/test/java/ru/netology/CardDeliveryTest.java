@@ -39,8 +39,10 @@ public class CardDeliveryTest {
         $("[class='checkbox__box']").click();
         $(withText("Запланировать")).click();
 
-        $(withText(date)).
-                shouldBe(visible, Duration.ofSeconds(15));
+        String notificationContent;
+        notificationContent = "Встреча успешно запланирована на " + date;
+        $("[class='notification__content']").
+                shouldBe(visible, Duration.ofSeconds(15)).shouldHave(exactText(notificationContent));
     }
 
     @Test
@@ -55,8 +57,10 @@ public class CardDeliveryTest {
         $("[class='checkbox__box']").click();
         $(withText("Запланировать")).click();
 
-        $("notification__content").
-                shouldBe(visible, Duration.ofSeconds(15));
+        String notificationContent;
+        notificationContent = "Встреча успешно запланирована на " + date;
+        $("[class='notification__content']").
+                shouldBe(visible, Duration.ofSeconds(15)).shouldHave(exactText(notificationContent));
 
         $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
         $("[placeholder='Дата встречи']").sendKeys(Keys.DELETE);
@@ -64,8 +68,11 @@ public class CardDeliveryTest {
         $(withText("Запланировать")).click();
 
         $$("button").find((exactText("Перепланировать"))).click();
-        $(withText(secondDate)).
-                shouldBe(visible, Duration.ofSeconds(15));
+
+        notificationContent = "Встреча успешно запланирована на " + secondDate;
+
+        $("[class='notification__content']").
+                shouldBe(visible, Duration.ofSeconds(15)).shouldHave(exactText(notificationContent));
     }
 
     @Test
